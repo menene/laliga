@@ -1,4 +1,4 @@
-# La Liga Explorer
+# La Liga
 
 Proyecto de demostración en clase construido para mostrar **Vite** como bundler moderno de JavaScript. La aplicación consume la API de **football-data.org** para mostrar la tabla de posiciones de La Liga y permite hacer drill-down hacia el detalle de cada equipo. Es intencionalmente sin framework (JS vanilla + DOM) para que el foco permanezca completamente en el rol de Vite en el pipeline de build.
 
