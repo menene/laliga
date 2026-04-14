@@ -2,10 +2,9 @@ import '@/css/style.css'
 import logo from '@/assets/logo.png'
 import { renderTeamList } from '@/components/TeamList.js'
 import { renderTeamDetail } from '@/components/TeamDetail.js'
+import { Router } from '@/router.js'
 
 const app = document.getElementById('app')
-
-let currentTeamId = null
 
 function renderHeader() {
   const header = document.createElement('header')
@@ -14,33 +13,31 @@ function renderHeader() {
   img.src = logo
   img.alt = import.meta.env.VITE_APP_TITLE
 
-  header.appendChild(img)
+  // Make the logo a link to home
+  const logoLink = document.createElement('a')
+  logoLink.href = '/'
+  logoLink.setAttribute('data-link', '')
+  logoLink.appendChild(img)
+
+  header.appendChild(logoLink)
   return header
 }
 
-async function render() {
-  app.innerHTML = ''
-  app.appendChild(renderHeader())
+// Setup initial structure
+app.appendChild(renderHeader())
+const main = document.createElement('main')
+app.appendChild(main)
 
-  const main = document.createElement('main')
-  app.appendChild(main)
-
-  if (currentTeamId === null) {
-    await renderTeamList(main, {
-      onTeamClick: (id) => {
-        currentTeamId = id
-        render()
-      }
-    })
-  } else {
-    await renderTeamDetail(main, {
-      teamId: currentTeamId,
-      onBack: () => {
-        currentTeamId = null
-        render()
-      }
-    })
+// Setup Router
+const routes = [
+  {
+    path: '/',
+    view: (container) => renderTeamList(container)
+  },
+  {
+    path: '/team/:id',
+    view: (container, params) => renderTeamDetail(container, params.id)
   }
-}
+]
 
-render()
+export const router = new Router(routes, main)

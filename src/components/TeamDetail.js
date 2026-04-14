@@ -1,6 +1,6 @@
 import { getTeam } from '@/api.js'
 
-export async function renderTeamDetail(container, { teamId, onBack }) {
+export async function renderTeamDetail(container, teamId) {
   container.innerHTML = `
     <div class="loading">
       <div class="spinner"></div>
@@ -20,7 +20,7 @@ export async function renderTeamDetail(container, { teamId, onBack }) {
   detail.className = 'team-detail'
 
   detail.innerHTML = `
-    <button class="back-btn">← Volver</button>
+    <a href="/" class="back-btn" data-link>← Volver</a>
     <div class="team-detail-header">
       <img src="${team.crest}" alt="${team.name}" />
       <div>
@@ -68,8 +68,6 @@ export async function renderTeamDetail(container, { teamId, onBack }) {
       </div>
     ` : ''}
   `
-
-  detail.querySelector('.back-btn').addEventListener('click', onBack)
 
   container.innerHTML = ''
   container.appendChild(detail)

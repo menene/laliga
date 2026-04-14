@@ -1,6 +1,6 @@
 import { getStandings } from '@/api.js'
 
-export async function renderTeamList(container, { onTeamClick }) {
+export async function renderTeamList(container) {
   container.innerHTML = `
     <div class="loading">
       <div class="spinner"></div>
@@ -33,8 +33,10 @@ export async function renderTeamList(container, { onTeamClick }) {
   `
 
   table.forEach(row => {
-    const item = document.createElement('div')
+    const item = document.createElement('a')
     item.className = 'standings-row'
+    item.href = `/team/${row.team.id}`
+    item.setAttribute('data-link', '')
 
     if (row.position <= 4) item.classList.add('zone-champions')
     else if (row.position <= 6) item.classList.add('zone-europa')
@@ -54,7 +56,6 @@ export async function renderTeamList(container, { onTeamClick }) {
       <span class="col-stat col-pts">${row.points}</span>
     `
 
-    item.addEventListener('click', () => onTeamClick(row.team.id))
     wrapper.appendChild(item)
   })
 
