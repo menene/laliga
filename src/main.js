@@ -35,7 +35,7 @@ const routes = [
     view: (container) => renderTeamList(container)
   },
   {
-    path: '/team/:id',
+    path: '/team/:id', //wildcard
     view: (container, params) => renderTeamDetail(container, params.id)
   }
 ]
